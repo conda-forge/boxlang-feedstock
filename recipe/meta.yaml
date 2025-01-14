@@ -7,11 +7,11 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/boxlang-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/boxlang-{{ version }}.tar.gz
   sha256: f0afd1b3c9d766f9f03191e131ab153aa0e5fee035a7f3a09dbf58df4e1a0682
 
 build:
-  number: 0
+  number: 1
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
   entry_points:
@@ -20,9 +20,10 @@ build:
 requirements:
   host:
     - pip
-    - python >=3.6
+    - python {{ python_min }}
+    - setuptools
   run:
-    - python >=3.6
+    - python >={{ python_min }}
 
 test:
   imports:
@@ -32,6 +33,7 @@ test:
     - box -h
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/p-ranav/box
